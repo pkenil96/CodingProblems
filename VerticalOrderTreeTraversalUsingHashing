@@ -1,0 +1,90 @@
+import java.util.*;
+class Node{
+    int data;
+    Node right;
+    Node left;
+    Node(int data){
+        this.data = data;
+    }
+}
+
+class Min_Max{
+    int min;
+    int max;
+    Min_Max(int min, int max){
+        this.min=min;
+        this.max=max;
+    }
+}
+
+class VerticalOrderTraversalUsingHashing{
+    public static void findMinMax(Node root,Min_Max obj, int hd){
+
+        /**
+         * This method calculates the horizontal distance of each node in the 
+         * tree from the root node and returns the minimum and maximum among them
+         */
+        if(root==null)
+            return;
+
+        if(hd > obj.max)
+            obj.max = hd;
+        else if(hd < obj.min)
+            obj.min = hd;
+
+        findMinMax(root.left, obj, hd-1);
+        findMinMax(root.right, obj, hd+1);
+    }
+
+    public static void verticalOrderTraversal(Node root, Map<Integer,Vector<Integer>> map,int hd){
+        
+        /**
+         * This method visits each node and maps its value to the 
+         * corresponding horizontal distance
+         * Since each node is visited exactly once we achieve O(n) time complexity
+         */
+        if(root == null)
+            return;
+        
+        Vector<Integer> temp = map.get(hd);            
+        /**
+         * This vector would store the nodes having similar horizontal distances
+        */
+
+        temp.add(root.data);
+        map.put(hd,temp);
+
+        verticalOrderTraversal(root.left, map, hd-1);
+        verticalOrderTraversal(root.right, map, hd+1);
+    }
+    public static void main(String [] args){
+        Node root = new Node(12);
+        root.left = new Node(6);
+        root.right = new Node(19);
+        root.left.right = new Node(8);
+        root.left.left = new Node(-23);
+        root.right.left = new Node(18);
+        root.right.right = new Node(52);
+
+        Min_Max obj = new Min_Max(99999, -99999);
+        findMinMax(root, obj, 0);
+
+        Map<Integer,Vector<Integer>> map = new HashMap<>();
+        for(int  i=obj.min;i<=obj.max;i++){
+            Vector <Integer> v = new Vector<>();
+            map.put(i,v);
+        }
+
+        verticalOrderTraversal(root, map, 0);
+
+        Set keys = map.keySet();
+        Iterator itr = keys.iterator();
+
+        while(itr.hasNext()){
+            Integer key = (Integer)itr.next();
+            Vector<Integer> values = map.get(key);
+            System.out.println(values);
+        }    
+                
+    }
+}
