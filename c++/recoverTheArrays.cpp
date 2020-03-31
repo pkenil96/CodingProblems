@@ -1,10 +1,7 @@
-#include <cmath>
-#include <cstdio>
-#include <vector>
 #include <iostream>
 #include <algorithm>
-using namespace std;
 
+using namespace std;
 
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
@@ -21,6 +18,5 @@ int main() {
         i+=arr[i]+1;
     }
     cout << m <<endl;
-    
     return 0;
 }
