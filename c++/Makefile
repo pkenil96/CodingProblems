@@ -13,6 +13,7 @@ all:
 	g++ maximumSubarraySum.cpp -o maimumSubarraySum.o
 	g++ mergeTwoSortedList.cpp -o mergeTwoSortedList.o
 	g++ swapNodesAlgo.cpp -o swapNodesAlgo.o
+	g++ singleNumber.cpp -o singleNumber.o
 
 clean:
 	rm *.o
