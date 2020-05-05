@@ -1,4 +1,4 @@
-package arrays.arrayproblems;
+package arrays;
 
 class MergingSortedArrays{
 
