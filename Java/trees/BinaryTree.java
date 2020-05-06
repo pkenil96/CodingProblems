@@ -1,4 +1,4 @@
-package trees.binarytree;
+package trees;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -50,6 +50,16 @@ public class BinaryTree{
 		System.out.println("Node removed: Value = " + data + " Position = " + position);
 	}
 
+	
+	private boolean isBstUtil(TreeNode root, int min, int max) {
+		if(root == null) return true;
+		if(root.data < min || root.data > max) return false;
+		return (isBstUtil(root.left, min, root.data - 1) && isBstUtil(root.right, root.data + 1, max));
+	}
+	
+	public boolean isBst() {
+		return isBstUtil(this.root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
 
 	//insertion takes place in level order fashion
 	public int insert(int data){
