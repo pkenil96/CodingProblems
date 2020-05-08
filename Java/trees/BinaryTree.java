@@ -1,5 +1,6 @@
 package trees;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -60,6 +61,58 @@ public class BinaryTree{
 	public boolean isBst() {
 		return isBstUtil(this.root, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
+	
+	public ArrayList<Integer> getNodesForLevel(int level) {
+		if(level < 0)
+			return null;
+		ArrayList <Integer> nodes = new ArrayList<>();
+		Queue <TreeNode> queue = new LinkedList<>();
+		queue.add(root);
+		queue.add(null);
+		
+		int currentLevel = 0; //root's level
+		while(!queue.isEmpty()) {
+			TreeNode curr = queue.poll();
+			if(curr == null) {
+				if(!queue.isEmpty()) {
+					queue.add(null);
+					currentLevel++;
+				}
+			} else {
+				if(curr.left != null)
+					queue.add(curr.left);
+				if(curr.right != null)
+					queue.add(curr.right);
+				if(currentLevel == level)
+					nodes.add(curr.data);
+			}
+		}
+		return nodes;
+	}
+	
+	public void printByLevel(){
+		if(root == null) return;
+
+		Queue <TreeNode> queue = new LinkedList<>();
+		queue.add(root);
+		queue.add(null);
+
+		while(!queue.isEmpty()){
+			TreeNode temp = queue.poll();
+			if(temp == null) {
+				if(!queue.isEmpty()) {
+					queue.add(null);
+					System.out.println();
+				}
+			} else {
+				if(temp.left != null)
+					queue.add(temp.left);
+				if(temp.right != null)
+					queue.add(temp.right);
+				System.out.print(temp.data + " ");
+			}
+		}
+	}// end of printByLevel
 
 	//insertion takes place in level order fashion
 	public int insert(int data){
